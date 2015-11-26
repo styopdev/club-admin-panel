@@ -70,7 +70,11 @@ app.use(function(err, req, res, next) {
 });
 
 
-mongoose.connect('mongodb://heroku_c1ltfq3k:heroku_c1ltfq3k@ds059524.mongolab.com:45632/heroku_c1ltfq3k');
+mongoose.connect('mongodb://heroku_c1ltfq3k:heroku_c1ltfq3k@ds059524.mongolab.com:45632/heroku_c1ltfq3k', function(err){
+  if (err)  {
+    console.log(err);
+  }
+});
 
 app.listen(process.env.PORT || 3000);
 
