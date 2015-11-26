@@ -1,0 +1,30 @@
+{
+  "name": "club-admin-panel",
+  "version": "1.0.0",
+  "description": "Club manage panel source code",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/styopdev/club-admin-panel.git"
+  },
+  "author": "styopdev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/styopdev/club-admin-panel/issues"
+  },
+  "homepage": "https://github.com/styopdev/club-admin-panel#readme",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "cookie-parser": "^1.4.0",
+    "express": "^4.13.3",
+    "express-session": "^1.12.1",
+    "jade": "^1.11.0",
+    "mongoose": "^4.2.8",
+    "morgan": "^1.6.1",
+    "serve-favicon": "^2.3.0",
+    "uuid": "^2.0.1"
+  }
+}

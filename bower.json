@@ -1,0 +1,18 @@
+{
+  "name": "n",
+  "description": "Club manage panel source code",
+  "main": "index.js",
+  "authors": [
+    "styopdev"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/styopdev/club-admin-panel",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
