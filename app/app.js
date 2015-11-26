@@ -67,7 +67,7 @@ var db = mongoose.connect('mongodb://aaaaqqqqqq44444:aaaaqqqqqq44444@ds059644.mo
     throw err;
   }
 });
-db.once('open', function(callback) {
+db.on('open', function(callback) {
     var MongoStore = require('express-session-mongo');
     app.use(session({ store: new MongoStore(),
       genid: function(req) {
