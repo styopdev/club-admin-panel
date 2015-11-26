@@ -62,12 +62,12 @@ app.use(function(err, req, res, next) {
 });
 
 
-var db = mongoose.connect('mongodb://aaaaqqqqqq44444:aaaaqqqqqq44444@ds059644.mongolab.com:59644/heroku_x6rx9k5d', function(err){
+var db = mongoose.createConnection('mongodb://aaaaqqqqqq44444:aaaaqqqqqq44444@ds059644.mongolab.com:59644/heroku_x6rx9k5d', function(err){
   if (err)  {
     throw err;
   }
 });
-db.on('open', function(callback) {
+db.once('open', function(callback) {
     var MongoStore = require('express-session-mongo');
     app.use(session({ store: new MongoStore(),
       genid: function(req) {
