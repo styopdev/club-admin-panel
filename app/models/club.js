@@ -6,4 +6,4 @@ var ClubSchema = new Schema({
     video : String,
     cover : String
 });
-module.exports = mongoose.model('Clubs', ClubSchema);
+module.exports = mongoose.model('Club', ClubSchema);
