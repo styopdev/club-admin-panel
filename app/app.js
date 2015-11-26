@@ -62,22 +62,24 @@ app.use(function(err, req, res, next) {
 });
 
 
-mongoose.connect('mongodb://aaaaqqqqqq44444:aaaaqqqqqq44444@ds059644.mongolab.com:59644/heroku_x6rx9k5d', function(err, db){
+var db = mongoose.connect('mongodb://aaaaqqqqqq44444:aaaaqqqqqq44444@ds059644.mongolab.com:59644/heroku_x6rx9k5d', function(err){
   if (err)  {
     throw err;
-  } else {
-    var MongoStore = require('express-session-mongo');
-      app.use(session({ store: new MongoStore(),
-        genid: function(req) {
-            return uuid.v1();
-        },
-        secret : 'club admin secret key for session',
-        resave :false,
-        saveUninitialized :false
-      }));
-      db.sessions.ensureIndex( { "lastAccess": 1 }, { expireAfterSeconds: 3600 } )
   }
 });
+db.once('open', function(callback) {
+    var MongoStore = require('express-session-mongo');
+    app.use(session({ store: new MongoStore(),
+      genid: function(req) {
+          return uuid.v1();
+      },
+      secret : 'club admin secret key for session',
+      resave :false,
+      saveUninitialized :false
+    }));
+    
+    db.sessions.ensureIndex( { "lastAccess": 1 }, { expireAfterSeconds: 3600 } )
+})
 
 app.listen(process.env.PORT || 3000);
 
