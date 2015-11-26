@@ -2,8 +2,9 @@
   "name": "club-admin-panel",
   "version": "1.0.0",
   "description": "Club manage panel source code",
-  "main": "index.js",
+  "main": "app/app.js",
   "scripts": {
+    "start": "app/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

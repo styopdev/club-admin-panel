@@ -1,6 +1,12 @@
 extends ./layout
 block content
 	form(enctype="multipart/form-data")
-		input(type="text", name="title")
-		input(type="text", name="video")
-		input(type="file", name="cover")
+		h1(style="text-align:center")
+			|	Login Please
+		input.form-control(name="title", type="text")
+		br
+		input.form-control(name="video", type="text")
+		br
+		input.form-control(name="cover", type="text")
+		br
+		input.btn.btn-success.col-md-offset-5(type="submit")
