@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var clubs = require('./routes/clubs');
 var users = require('./routes/users');
+var index = require('./routes/index');
 
 var mongoose = require("mongoose");
 
@@ -27,6 +28,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/', index)
 app.use('/clubs', clubs);
 app.use('/users', users);
 
@@ -62,22 +64,22 @@ app.use(function(err, req, res, next) {
 });
 
 
-// var db = mongoose.createConnection('mongodb://aaaaqqqqqq44444:aaaaqqqqqq44444@ds059644.mongolab.com:59644/heroku_x6rx9k5d', function(err){
-//   if (err)  {
-//     throw err;
-//   }
-// });
-// db.once('open', function(callback) {
-//     var MongoStore = require('express-session-mongo');
-//     app.use(session({ store: new MongoStore(),
-//       genid: function(req) {
-//           return uuid.v1();
-//       },
-//       secret : 'club admin secret key for session',
-//       resave :false,
-//       saveUninitialized :false
-//     }));
-//     })
+var db = mongoose.createConnection('mongodb://aaaaqqqqqq44444:aaaaqqqqqq44444@ds059644.mongolab.com:59644/heroku_x6rx9k5d', function(err){
+  if (err)  {
+    throw err;
+  }
+});
+db.once('open', function(callback) {
+    var MongoStore = require('express-session-mongo');
+    app.use(session({ store: new MongoStore(),
+      genid: function(req) {
+          return uuid.v1();
+      },
+      secret : 'club admin secret key for session',
+      resave :false,
+      saveUninitialized :false
+    }));
+    })
 
 app.listen(process.env.PORT || 3000);
 
