@@ -77,9 +77,7 @@ db.once('open', function(callback) {
       resave :false,
       saveUninitialized :false
     }));
-    
-    db.sessions.ensureIndex( { "lastAccess": 1 }, { expireAfterSeconds: 3600 } )
-})
+    })
 
 app.listen(process.env.PORT || 3000);
 
