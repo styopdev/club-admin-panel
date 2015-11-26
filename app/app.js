@@ -70,7 +70,7 @@ app.use(function(err, req, res, next) {
 });
 
 
-mongoose.connect('mongodb://sdfgsdferwtgeergz45dfwef:sdfgsdferwtgeergz45dfwef@ds059644.mongolab.com:59644/heroku_x6rx9k5d', function(err){
+mongoose.connect('mongodb://aaaaqqqqqq44444:aaaaqqqqqq44444@ds059644.mongolab.com:59644/heroku_x6rx9k5d', function(err){
   if (err)  {
     console.log(err);
   }
