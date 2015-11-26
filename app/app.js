@@ -14,6 +14,7 @@ var app = express();
 var session  = require('express-session');
 var uuid = require("uuid");
 
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -26,14 +27,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(session({
-    genid: function(req) {
-        return uuid.v1();
-    },
-    secret : 'club admin secret key for session',
-    resave :false,
-    saveUninitialized :false
-}));
+
 
 app.use('/clubs', clubs);
 app.use('/users', users);
@@ -70,9 +64,18 @@ app.use(function(err, req, res, next) {
 });
 
 
-mongoose.connect('mongodb://aaaaqqqqqq44444:aaaaqqqqqq44444@ds059644.mongolab.com:59644/heroku_x6rx9k5d', function(err){
+mongoose.connect('mongodb://aaaaqqqqqq44444:aaaaqqqqqq44444@ds059644.mongolab.com:59644/heroku_x6rx9k5d', function(err) {
   if (err)  {
-    console.log(err);
+    throw err;
+  } else {
+      app.use(session({
+          genid: function(req) {
+              return uuid.v1();
+          },
+          secret : 'club admin secret key for session',
+          resave :false,
+          saveUninitialized :false
+      }));
   }
 });
 
