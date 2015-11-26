@@ -27,8 +27,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-
 app.use('/clubs', clubs);
 app.use('/users', users);
 
@@ -64,18 +62,20 @@ app.use(function(err, req, res, next) {
 });
 
 
-mongoose.connect('mongodb://aaaaqqqqqq44444:aaaaqqqqqq44444@ds059644.mongolab.com:59644/heroku_x6rx9k5d', function(err) {
+mongoose.connect('mongodb://aaaaqqqqqq44444:aaaaqqqqqq44444@ds059644.mongolab.com:59644/heroku_x6rx9k5d', function(err, db){
   if (err)  {
     throw err;
   } else {
-      app.use(session({
-          genid: function(req) {
-              return uuid.v1();
-          },
-          secret : 'club admin secret key for session',
-          resave :false,
-          saveUninitialized :false
+    var MongoStore = require('express-session-mongo');
+      app.use(session({ store: new MongoStore(),
+        genid: function(req) {
+            return uuid.v1();
+        },
+        secret : 'club admin secret key for session',
+        resave :false,
+        saveUninitialized :false
       }));
+      db.sessions.ensureIndex( { "lastAccess": 1 }, { expireAfterSeconds: 3600 } )
   }
 });
 
