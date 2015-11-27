@@ -1,47 +1,44 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
+var express  = require('express');
+var path     = require('path');
+var favicon  = require('serve-favicon');
+var logger   = require('morgan');
+var session  = require('express-session');
+var uuid     = require('node-uuid');
+var mongoose = require('mongoose');
+var bodyParser   = require('body-parser');
 var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
 
-var clubs = require('./routes/clubs');
-var users = require('./routes/users');
-var index = require('./routes/index');
-
-var mongoose = require("mongoose");
+// ROUTES
+var routes = require('./routes/index');
+var users  = require('./routes/users');
+var clubs  = require('./routes/clubs');
 
 var app = express();
-var session  = require('express-session');
-var uuid = require("uuid");
-
+var http = require("http");
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+//app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.use(session({ 
-  genid: function(req) {
-      return uuid.v1();
-  },
-  secret : 'club admin secret key for session',
-  resave :false,
-  saveUninitialized :false
+app.use(session({
+    genid: function(req) {
+        return uuid.v1();
+    },
+    secret : 'smart words game secret key for session',
+    resave :false,
+    saveUninitialized :false
 }));
 
-app.use('/', index)
-app.use('/clubs', clubs);
+app.use('/', routes);
 app.use('/users', users);
-
-
+app.use('/clubs', clubs);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -74,18 +71,25 @@ app.use(function(err, req, res, next) {
   });
 });
 
+var port = process.env.PORT || 8080;
+app.listen(port);
 
-
-app.listen(process.env.PORT || 8080);
-
-var db = mongoose.connect('mongodb://aaaaqqqqqq44444:aaaaqqqqqq44444@ds059644.mongolab.com:59644/heroku_x6rx9k5d', function(err){
-  if (err)  {
-    throw err;
-  }
+mongoose.connect('mongodb://webandweb:webandweb@ds045632.mongolab.com:45632/heroku_gl2x2zpj', function(err) {
+    if (err) {
+        throw err;
+    } else {
+        console.log("Connected!!!");
+    }
 });
-// db.once('open', function(callback) {
-    
-//     })
+
+
+//mongoose.connect('mongodb://localhost/smart-words', function(err) {
+//    if (err) {
+//        throw err;
+//    } else {
+//        console.log("Connected!!!");
+//    }
+//});
 
 
 
