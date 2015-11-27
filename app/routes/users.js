@@ -17,10 +17,6 @@ router.post('/login', function(req, res, next) {
 });
 
 router.get('/login', function(req, res, next) {
-	// if (req.session.user_id) {
-	// 	return res.redirect("/clubs/form");
-	// } else {
-  		return res.render('login');	
-	// }
+  	return res.render('login');
 });
 module.exports = router;
